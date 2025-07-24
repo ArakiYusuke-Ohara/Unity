@@ -45,7 +45,9 @@ Shader "Custom/05_NormalMap"
                 float2 uv : TEXCOORD0;          // 水面テクスチャ用UV
                 float3 worldPos : TEXCOORD1;    // ワールド空間位置
                 float3 viewDir : TEXCOORD2;     // カメラからの視線ベクトル
-                float3x3 tbn : TEXCOORD3;       // TBN行列（ノーマルマップ変換用）
+                float3 tangent : TEXCOORD3;     // 接線
+                float3 binormal : TEXCOORD4;    // 従法線
+                float3 normal : TEXCOORD5;      // 法線
             };
 
             // 頂点シェーダー
@@ -65,10 +67,9 @@ Shader "Custom/05_NormalMap"
                 o.viewDir = normalize(_WorldSpaceCameraPos - o.worldPos);
 
                 // TBN行列（ノーマルマップのベクトル変換用）
-                float3 worldNormal = UnityObjectToWorldNormal(v.normal);
-                float3 worldTangent = UnityObjectToWorldDir(v.tangent.xyz);
-                float3 worldBinormal = cross(worldNormal, worldTangent) * v.tangent.w;
-                o.tbn = float3x3(worldTangent, worldBinormal, worldNormal);
+                o.normal = UnityObjectToWorldNormal(v.normal);
+                o.tangent = UnityObjectToWorldDir(v.tangent.xyz);
+                o.binormal = cross(o.normal, o.tangent) * v.tangent.w;
 
                 return o;
             }
@@ -76,6 +77,8 @@ Shader "Custom/05_NormalMap"
             // フラグメントシェーダー
             fixed4 frag(v2f i) : SV_Target
             {
+                float3x3 tbn = float3x3(i.tangent, i.binormal, i.normal);
+
                 // 水面テクスチャ取得
                 fixed4 baseCol = tex2D(_MainTex, i.uv);
 
@@ -90,7 +93,7 @@ Shader "Custom/05_NormalMap"
                 normalTex = normalize(normalTex);             // 正規化
 
                 // TBN行列を作成してワールド空間へ変換
-                float3 normalWS = normalize(mul(normalTex, i.tbn));
+                float3 normalWS = normalize(mul(normalTex, tbn));
 
                 // ディレクショナルライト対応
                 // このときノーマルマップから計算した法線の補間ベクトル(normalTex)が適用され

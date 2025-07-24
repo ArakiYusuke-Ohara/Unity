@@ -11,6 +11,8 @@ public class Dissolver : MonoBehaviour
 
     void Update()
     {
+        // Materialクラスからシェーダーの変数を書き換えられる
         m_Material.SetFloat("_DissolveAmount", m_Dissolve);
     }
 }
+
