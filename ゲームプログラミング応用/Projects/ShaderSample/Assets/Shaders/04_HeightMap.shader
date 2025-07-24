@@ -23,7 +23,6 @@ Shader "Custom/04_HeightMap"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #include "UnityCG.cginc"
 
             sampler2D _MainTex;
             sampler2D _HeightMap;
@@ -48,8 +47,7 @@ Shader "Custom/04_HeightMap"
                 o.vertex = UnityObjectToClipPos(v.vertex);
 
                 // スクロールUV計算
-                float2 scrollUV = v.uv + _ScrollSpeed.xy * _Time.x;
-                o.uv = scrollUV;
+                o.uv = v.uv + _ScrollSpeed.xy * _Time.x;
                 return o;
             }
 
