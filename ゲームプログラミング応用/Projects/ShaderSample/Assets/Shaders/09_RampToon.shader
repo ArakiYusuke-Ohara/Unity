@@ -16,9 +16,6 @@ Shader "Custom/09_RampToon"
 
         Pass
         {
-            // URPで前向きレンダリングパスを使用
-            Tags { "LightMode"="UniversalForward" }
-
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag

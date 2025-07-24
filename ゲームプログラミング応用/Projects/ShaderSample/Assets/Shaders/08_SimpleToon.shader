@@ -19,9 +19,6 @@ Shader "Custom/08_SimpleToon"
 
         Pass
         {
-            // URPで前向きレンダリングパスを使用
-            Tags { "LightMode"="UniversalForward" }
-
             HLSLPROGRAM
             // 頂点/ピクセルシェーダー指定
             #pragma vertex vert
