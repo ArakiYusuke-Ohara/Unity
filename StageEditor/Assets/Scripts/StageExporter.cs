@@ -6,17 +6,18 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Linq;
 
+// ファイル出力するデータ
 [Serializable]
 public class StageObjectData
 {
-    public int id;
-    public Vector3 position;
-    public Vector3 rotation;
-    public Vector3 scale;
-    public string name;
+    public int id;              // ID
+    public Vector3 position;    // 座標
+    public Vector3 rotation;    // 回転
+    public Vector3 scale;       // スケール
+    public string name;         // ヒエラルキー名（確認用）
 }
 
-// 配列ラッパー
+// jsonファイルにするデータのラッパー
 [Serializable]
 public class Wrapper
 {
@@ -25,14 +26,18 @@ public class Wrapper
 
 public class StageExporter
 {
+    // Unityの上部メニューに追加する
+    // クリックすると下の関数が呼ばれる
     [MenuItem("Tools/Export Stage JSON")]
     static void ExportStage()
     {
-        var scene = SceneManager.GetActiveScene();
-        var objects = StageObject.m_AllObject;
+        // 開いているシーンを取得
+        Scene scene = SceneManager.GetActiveScene();
+        // 登録されたオブジェクトたちを取得
+        List<StageObject> objects = StageObject.m_AllObject;
 
-        // StageObject の情報を StageObjectData に変換
-        var exportList = StageObject.m_AllObject
+        // 登録されたオブジェクトたちを出力用のデータに格納
+        StageObjectData[] exportList = objects
             .Select(obj => new StageObjectData
             {
                 id = (int)obj.ID,
@@ -43,11 +48,14 @@ public class StageExporter
             })
             .ToArray();
 
+        // 出力するデータをラップする
         var wrapper = new Wrapper { items = exportList };
-        string json = JsonUtility.ToJson(wrapper, true);
 
+        // ラップしたデータをjsonで出力する
+        string json = JsonUtility.ToJson(wrapper, true);
         File.WriteAllText(Application.dataPath + "/../json/" + scene.name + ".json", json);
 
+        // 完了メッセージ
         Debug.Log("Exported 3D stage.json");
     }
 }
