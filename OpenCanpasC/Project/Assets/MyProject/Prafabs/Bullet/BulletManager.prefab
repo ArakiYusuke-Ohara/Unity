@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc72821d4aaf9045b882b8cb8c03dbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletManager
-  m_BulletList:
+  m_BulletMasterObject:
   - {fileID: 6743574955496143534, guid: 044b29791252d9d438af64bbc72cbee5, type: 3}

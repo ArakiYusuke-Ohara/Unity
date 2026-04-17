@@ -11,13 +11,15 @@ public class Player : MonoBehaviour
     [SerializeField]
     float m_BulletSpeed = 50.0f;
 
+    [SerializeField]
+    float m_BulletInterval = 0.2f;
 
-    Rigidbody m_Rigidbody;
+    float m_BulletIntervalTimer = 0.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        m_Rigidbody = GetComponent<Rigidbody>();
+        m_BulletIntervalTimer = 0.0f;
     }
 
     // Update is called once per frame
@@ -62,10 +64,16 @@ public class Player : MonoBehaviour
     private void Attack()
     {
         // íeä€èàóù
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKey(KeyCode.Z))
         {
-            // î≠éÀ
-            BulletManager.Instance.FireBullet(m_BulletID, transform.position, new Vector3(m_BulletSpeed, 0.0f, 0.0f));
+            if (m_BulletIntervalTimer <= 0.0f)
+            {
+                // î≠éÀ
+                BulletManager.Instance.FireBullet(m_BulletID, transform.position, new Vector3(m_BulletSpeed, 0.0f, 0.0f));
+                m_BulletIntervalTimer = m_BulletInterval;
+            }
         }
+
+        m_BulletIntervalTimer -= Time.deltaTime;
     }
 }

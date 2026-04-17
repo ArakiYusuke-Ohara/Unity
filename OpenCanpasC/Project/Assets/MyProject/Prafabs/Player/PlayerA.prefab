@@ -105,7 +105,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04a27101c91b2ee4287c369166de3f22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  m_Speed: 0.1
+  m_Speed: 15
+  m_BulletID: 0
+  m_BulletSpeed: 50
+  m_BulletInterval: 0.2
 --- !u!54 &4997543598554236626
 Rigidbody:
   m_ObjectHideFlags: 0

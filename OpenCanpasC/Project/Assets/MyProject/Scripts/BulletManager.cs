@@ -5,7 +5,7 @@ public class BulletManager : MonoBehaviour
 {
     // ID順に設定する弾丸の元データ
     [SerializeField]
-    private GameObject[] m_BulletList;
+    private GameObject[] m_BulletMasterObject;
 
     // 発射された弾丸リスト
     private List<Bullet> m_Bullets = new List<Bullet>();
@@ -43,7 +43,7 @@ public class BulletManager : MonoBehaviour
         // 発射リストを見て同じ弾丸かつ未使用のものがあれば再利用
         foreach (Bullet bullet in m_Bullets)
         {
-            if (bullet.ID == id && !bullet.Active)
+            if (bullet.ID == id && !bullet.gameObject.activeInHierarchy)
             {
                 bullet.Fire(pos, move);
                 return;
@@ -51,8 +51,9 @@ public class BulletManager : MonoBehaviour
         }
 
         // 再利用できなければ生成して発射
-        GameObject obj = Instantiate(m_BulletList[id]);
+        GameObject obj = Instantiate(m_BulletMasterObject[id]);
         Bullet bulletComponent = obj.GetComponent<Bullet>();
         bulletComponent.Fire(pos, move);
+        m_Bullets.Add(bulletComponent);
     }
 }
