@@ -19,8 +19,8 @@ public class EnemyManager : MonoBehaviour
         public float spawnInterval;
         public int spawnNum;
     }
-    [SerializeField]
-    LevelParameter[] LEVEL_PARAMETER =
+
+    LevelParameter[] m_LevelParam =
     {
         new LevelParameter { spawnInterval = 5.0f, spawnNum = 1 },
         new LevelParameter { spawnInterval = 4.0f, spawnNum = 1 },
@@ -37,14 +37,13 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]
     private GameObject[] m_EnemyMasterObject;
 
-    private List<EnemyBase> m_Enemis;
+    private List<EnemyBase> m_Enemis = new List<EnemyBase>();
 
     // ランダムに並べる配置番号
     List<int> locationNumbers = new List<int>();
     int locationIndex = 0;
 
     // スポーンインターバル
-    [SerializeField]
     float m_SpawnInterval = 5.0f;
     float m_SpawnIntervalTimer = 0.0f;
 
@@ -77,9 +76,12 @@ public class EnemyManager : MonoBehaviour
             locationNumbers.Add(i);
         }
 
+        // ロケーション番号をシャッフル
         ShuffleLocationNumbers();
 
-        m_SpawnIntervalTimer = m_SpawnInterval;
+        // 初期値設定
+        m_SpawnInterval = m_LevelParam[0].spawnInterval;
+        m_SpawnIntervalTimer = 0.0f;
         m_LevelUpIntervalTimer = m_LevelUpInterval;
         m_Level = 0;
     }
@@ -87,29 +89,45 @@ public class EnemyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // レベルアップ更新処理
         UpdateLevelUp();
+        // スポーン更新処理
         UpdateSpawner();
     }
 
     void UpdateLevelUp()
     {
+        // 一定時間でレベルアップ
         if (m_LevelUpIntervalTimer <= 0.0f)
         {
-            m_Level++;
+            LevelUp();
             m_LevelUpIntervalTimer = m_LevelUpInterval;
         }
-
         m_LevelUpIntervalTimer -= Time.deltaTime;
+    }
+
+    void LevelUp()
+    {
+        m_Level++;
+        if (m_Level >= LEVEL_MAX) return;
+
+        m_SpawnInterval = m_LevelParam[m_Level].spawnInterval;
     }
 
     void UpdateSpawner()
     {
+        // 一定時間でスポーン
         if (m_SpawnIntervalTimer <= 0.0f)
         {
-            RandomLocationSpawn();
+            // レベルによって同時スポーン数が変わる
+            int spawnNum = m_LevelParam[m_Level].spawnNum;
+            for (int i = 0; i < spawnNum; i++)
+            {
+                RandomLocationSpawn();
+            }
+
             m_SpawnIntervalTimer = m_SpawnInterval;
         }
-
         m_SpawnIntervalTimer -= Time.deltaTime;
     }
 
@@ -153,7 +171,9 @@ public class EnemyManager : MonoBehaviour
         locationIndex = 0;
     }
 
-    // ランダム配置でスポーン
+    /// <summary>
+    /// ランダム配置でスポーン
+    /// </summary>
     void RandomLocationSpawn()
     {
         int number = locationNumbers[locationIndex];

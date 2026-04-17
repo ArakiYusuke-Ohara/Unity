@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyBeholder : EnemyBase
@@ -11,6 +12,6 @@ public class EnemyBeholder : EnemyBase
     // Update is called once per frame
     void Update()
     {
-        
+        base.Update();
     }
 }
