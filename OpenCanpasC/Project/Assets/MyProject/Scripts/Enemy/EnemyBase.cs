@@ -26,6 +26,9 @@ public class EnemyBase : MonoBehaviour
     int m_SEDeadID = -1;
 
     [SerializeField]
+    int m_EXP = 1;
+
+    [SerializeField]
     Transform m_DeadEffectNode = null;
 
     protected State m_State = State.NONE;
