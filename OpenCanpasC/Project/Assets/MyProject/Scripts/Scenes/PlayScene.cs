@@ -7,7 +7,7 @@ public class PlayScene : MonoBehaviour
 
     int m_KillEnemy = 0;
 
-    public int KillEnemy { get { return m_KillEnemy; } set { m_KillEnemy += value; } }
+    public int KillEnemy { get { return m_KillEnemy; } set { m_KillEnemy = value; } }
 
     public static PlayScene Instance { get; private set; }
 

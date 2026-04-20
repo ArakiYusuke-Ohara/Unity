@@ -15,8 +15,18 @@ public class Effect : MonoBehaviour
         m_ParticleSystem = GetComponent<ParticleSystem>();
     }
 
+    private void Update()
+    {
+        if (!m_ParticleSystem.IsAlive(true))
+        {
+            gameObject.SetActive(false);
+        }
+        
+    }
+
     public void Play(Vector3 pos)
     {
+        gameObject.SetActive(true);
         m_ParticleSystem.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         transform.position = pos;
         m_ParticleSystem.Play();

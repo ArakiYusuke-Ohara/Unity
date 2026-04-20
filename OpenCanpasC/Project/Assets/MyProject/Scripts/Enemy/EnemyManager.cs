@@ -11,7 +11,7 @@ public class EnemyManager : MonoBehaviour
     const float COL_GAP = 8.0f;
     const float LOCATION_LEFT = -2.0f;
     const float LOCATION_BOTTOM = -20.0f;
-    const float START_X = 45.0f;
+    const float START_X = 35.0f;
     const int LEVEL_MAX = 10;
 
     struct LevelParameter
