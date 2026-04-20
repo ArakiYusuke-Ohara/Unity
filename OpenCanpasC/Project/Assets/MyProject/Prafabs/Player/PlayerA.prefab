@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7118992051591272468}
   m_Layer: 0
   m_Name: PlayerA
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33,7 +33,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6025419230810776059}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &8148809477393408407
@@ -107,8 +108,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   m_Speed: 15
   m_BulletID: 0
-  m_BulletSpeed: 50
   m_BulletInterval: 0.2
+  m_Muzzle: {fileID: 6025419230810776059}
 --- !u!54 &4997543598554236626
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -159,3 +160,34 @@ CapsuleCollider:
   m_Height: 7
   m_Direction: 2
   m_Center: {x: 0, y: 1, z: -2.5}
+--- !u!1 &5946008169367924919
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6025419230810776059}
+  m_Layer: 0
+  m_Name: Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6025419230810776059
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5946008169367924919}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.4, z: 2.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8333291556655074140}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

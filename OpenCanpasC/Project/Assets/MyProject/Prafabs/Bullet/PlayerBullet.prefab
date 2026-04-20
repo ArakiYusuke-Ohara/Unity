@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5212828800350485069}
   m_Layer: 0
   m_Name: PlayerBullet
-  m_TagString: Untagged
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -68,7 +68,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   m_ID: 0
+  m_Speed: 50
+  m_Damage: 1
   m_Life: 2
+  m_HitEffectID: 0
+  m_SEFireID: 0
+  m_SEHitID: 3
 --- !u!1 &7195836866115582189
 GameObject:
   m_ObjectHideFlags: 0

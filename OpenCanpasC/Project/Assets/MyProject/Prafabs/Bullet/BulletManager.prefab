@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BulletManager
   m_BulletMasterObject:
   - {fileID: 6743574955496143534, guid: 044b29791252d9d438af64bbc72cbee5, type: 3}
+  - {fileID: 1934829632593571346, guid: 66ba901ddf763414fbe94aff1274b4e3, type: 3}
