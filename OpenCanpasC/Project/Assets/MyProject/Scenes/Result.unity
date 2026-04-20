@@ -468,6 +468,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7041601162542015543, guid: 3f07a190b5bdc3c49a65d9f81fe343f5, type: 3}
+      propertyPath: m_KillEnemyText
+      value: 
+      objectReference: {fileID: 612147841}
     - target: {fileID: 4041812587760001639, guid: 3f07a190b5bdc3c49a65d9f81fe343f5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
