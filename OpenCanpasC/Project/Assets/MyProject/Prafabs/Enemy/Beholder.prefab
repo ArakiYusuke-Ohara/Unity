@@ -1639,10 +1639,14 @@ MonoBehaviour:
   m_MoveSpeed: 5
   m_DeadEffectID: 2
   m_SEDeadID: 5
+  m_EXP: 1
   m_DeadEffectNode: {fileID: 7693156975577079879}
+  m_StayTime: 5
+  m_EscapeAccel: -0.2
+  m_EscapeVF: 8
   m_BulletID: 1
   m_BulletInterval: 3
-  m_Mussle: {fileID: 6082976012592007012}
+  m_Muzzle: {fileID: 6082976012592007012}
 --- !u!135 &9219800251735410117
 SphereCollider:
   m_ObjectHideFlags: 0

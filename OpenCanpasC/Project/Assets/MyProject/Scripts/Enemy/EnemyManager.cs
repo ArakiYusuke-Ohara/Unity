@@ -12,27 +12,16 @@ public class EnemyManager : MonoBehaviour
     const float LOCATION_LEFT = -2.0f;
     const float LOCATION_BOTTOM = -20.0f;
     const float START_X = 35.0f;
-    const int LEVEL_MAX = 10;
 
+    [System.Serializable]
     struct LevelParameter
     {
         public float spawnInterval;
         public int spawnNum;
     }
 
-    LevelParameter[] m_LevelParam =
-    {
-        new LevelParameter { spawnInterval = 5.0f, spawnNum = 1 },
-        new LevelParameter { spawnInterval = 4.0f, spawnNum = 1 },
-        new LevelParameter { spawnInterval = 3.0f, spawnNum = 1 },
-        new LevelParameter { spawnInterval = 5.0f, spawnNum = 2 },
-        new LevelParameter { spawnInterval = 4.0f, spawnNum = 2 },
-        new LevelParameter { spawnInterval = 3.0f, spawnNum = 2 },
-        new LevelParameter { spawnInterval = 5.0f, spawnNum = 3 },
-        new LevelParameter { spawnInterval = 4.0f, spawnNum = 3 },
-        new LevelParameter { spawnInterval = 3.0f, spawnNum = 3 },
-        new LevelParameter { spawnInterval = 4.0f, spawnNum = 5 },
-    };
+    [SerializeField]
+    LevelParameter[] m_LevelParam;
 
     [SerializeField]
     private GameObject[] m_EnemyMasterObject;
@@ -108,10 +97,11 @@ public class EnemyManager : MonoBehaviour
 
     void LevelUp()
     {
-        m_Level++;
-        if (m_Level >= LEVEL_MAX) return;
+        if (m_Level >= (m_LevelParam.Length - 1)) return;
 
+        m_Level++;
         m_SpawnInterval = m_LevelParam[m_Level].spawnInterval;
+
     }
 
     void UpdateSpawner()

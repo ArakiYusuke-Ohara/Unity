@@ -44,6 +44,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e895493e6a2a81c48afc2df5746d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyManager
+  m_LevelParam:
+  - spawnInterval: 4
+    spawnNum: 1
+  - spawnInterval: 3
+    spawnNum: 1
+  - spawnInterval: 2
+    spawnNum: 1
+  - spawnInterval: 3
+    spawnNum: 2
+  - spawnInterval: 2
+    spawnNum: 2
+  - spawnInterval: 3
+    spawnNum: 3
+  - spawnInterval: 2
+    spawnNum: 3
+  - spawnInterval: 3
+    spawnNum: 4
+  - spawnInterval: 2
+    spawnNum: 4
+  - spawnInterval: 3
+    spawnNum: 5
   m_EnemyMasterObject:
   - {fileID: 4530003306004163418, guid: 69280a5de5ff8f7419e91bde75619099, type: 3}
-  m_LevelUpInterval: 20
+  m_LevelUpInterval: 10

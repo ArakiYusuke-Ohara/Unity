@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 public class EnemyBase : MonoBehaviour
@@ -7,6 +8,7 @@ public class EnemyBase : MonoBehaviour
         NONE,
         MOVE,
         STAY,
+        ESCAPE
     }
 
     [SerializeField]
@@ -31,6 +33,16 @@ public class EnemyBase : MonoBehaviour
     [SerializeField]
     Transform m_DeadEffectNode = null;
 
+    [SerializeField]
+    float m_StayTime = 5.0f;
+    float m_StayTimer = 0.0f;
+
+    [SerializeField]
+    float m_EscapeAccel = -0.1f;
+    [SerializeField]
+    float m_EscapeVF = 2.0f;
+    Vector3 m_EscapeMove = Vector3.zero;
+
     protected State m_State = State.NONE;
     Vector3 m_TargetPos = Vector3.zero;
 
@@ -52,6 +64,14 @@ public class EnemyBase : MonoBehaviour
         {
             case State.MOVE:
                 UpdateMove();
+                break;
+
+            case State.STAY:
+                UpdateStay();
+                break;
+
+            case State.ESCAPE:
+                UpdateEscape();
                 break;
 
             default:
@@ -78,6 +98,34 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
+    void UpdateStay()
+    {
+        if (m_StayTimer <= 0.0f)
+        {
+            StartEscape();
+        }
+
+        m_StayTimer -= Time.deltaTime;
+    }
+
+    void StartEscape()
+    {
+        m_EscapeMove.x = m_EscapeVF;
+        m_State = State.ESCAPE;
+    }
+
+    void UpdateEscape()
+    {
+        transform.position += m_EscapeMove * Time.deltaTime;
+        m_EscapeMove.x += m_EscapeAccel;
+
+        // 左端まで行ったら非アクティブ
+        if (transform.position.x <= -40.0f)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
     public virtual void Spawn(Vector3 pos, Quaternion rot)
     {
         m_State = State.MOVE;
@@ -86,6 +134,7 @@ public class EnemyBase : MonoBehaviour
         transform.rotation = rot;
         m_TargetPos = pos;
         m_HP = m_MaxHP;
+        m_StayTimer = m_StayTime;
     }
 
     private void Damage(int damage)
@@ -107,6 +156,9 @@ public class EnemyBase : MonoBehaviour
 
         // 倒したエネミー数加算
         PlayScene.Instance.KillEnemy++;
+
+        // 経験値加算
+        PlayerManager.Instance.PlayerComponent.AddExp(m_EXP);
 
         gameObject.SetActive(false);
     }

@@ -12,7 +12,7 @@ public class EnemyBeholder : EnemyBase
     float m_BulletIntervalTimer = 0.0f;
 
     [SerializeField]
-    Transform m_Mussle;
+    Transform m_Muzzle;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -35,7 +35,7 @@ public class EnemyBeholder : EnemyBase
     {
         if (m_BulletIntervalTimer <= 0.0f)
         {
-            BulletManager.Instance.FireBullet(m_BulletID, m_Mussle.position, m_Mussle.forward);
+            BulletManager.Instance.FireBullet(m_BulletID, m_Muzzle.position, m_Muzzle.forward);
             m_BulletIntervalTimer = m_BulletInterval;
         }
 

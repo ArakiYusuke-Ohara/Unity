@@ -149,7 +149,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -591,7 +591,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -700,7 +700,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4398166287301088964, guid: 72378ff970e25fa47b59e177e8ae4b2e, type: 3}
       propertyPath: m_Name
-      value: PlayerA
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8333291556655074140, guid: 72378ff970e25fa47b59e177e8ae4b2e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -745,10 +745,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1115770450695278629, guid: 72378ff970e25fa47b59e177e8ae4b2e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72378ff970e25fa47b59e177e8ae4b2e, type: 3}
 --- !u!1001 &1085683819709519736
 PrefabInstance:
@@ -807,6 +804,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1656f7518d5012f4f8cadaf7b34a6d4f, type: 3}
+--- !u!1001 &1886246941545143108
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1364343476969664043, guid: d821fbbb67328d94caa636c70d1040a0, type: 3}
+      propertyPath: m_Name
+      value: PlayerManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1793559916821910622, guid: d821fbbb67328d94caa636c70d1040a0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1793559916821910622, guid: d821fbbb67328d94caa636c70d1040a0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1793559916821910622, guid: d821fbbb67328d94caa636c70d1040a0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1793559916821910622, guid: d821fbbb67328d94caa636c70d1040a0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1793559916821910622, guid: d821fbbb67328d94caa636c70d1040a0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1793559916821910622, guid: d821fbbb67328d94caa636c70d1040a0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1793559916821910622, guid: d821fbbb67328d94caa636c70d1040a0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1793559916821910622, guid: d821fbbb67328d94caa636c70d1040a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1793559916821910622, guid: d821fbbb67328d94caa636c70d1040a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1793559916821910622, guid: d821fbbb67328d94caa636c70d1040a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d821fbbb67328d94caa636c70d1040a0, type: 3}
 --- !u!1001 &3373394293454097419
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -923,6 +977,10 @@ PrefabInstance:
     - target: {fileID: 3828640401540441499, guid: 4003250af20815c44b72cb93167696e6, type: 3}
       propertyPath: m_Name
       value: EnemyManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8304746993060670125, guid: 4003250af20815c44b72cb93167696e6, type: 3}
+      propertyPath: m_LevelUpInterval
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1058,3 +1116,4 @@ SceneRoots:
   - {fileID: 1230392416}
   - {fileID: 102221741}
   - {fileID: 8422775991813959705}
+  - {fileID: 1886246941545143108}
