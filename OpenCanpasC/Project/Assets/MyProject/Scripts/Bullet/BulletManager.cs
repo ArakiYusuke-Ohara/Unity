@@ -3,6 +3,13 @@ using UnityEngine;
 
 public class BulletManager : MonoBehaviour
 {
+    public enum BulletID
+    {
+        NONE = -1,
+        PLAYER_BULLET = 0,
+        BEHOLDER_BULLET = 1
+    }
+
     // ID順に設定する弾丸の元データ
     [SerializeField]
     private GameObject[] m_BulletMasterObject;
@@ -35,7 +42,7 @@ public class BulletManager : MonoBehaviour
         
     }
 
-    public void FireBullet(int id, Vector3 pos, Vector3 move)
+    public void FireBullet(BulletID id, Vector3 pos, Vector3 move)
     {
         // IDチェック
         if (id < 0) return;
@@ -51,7 +58,7 @@ public class BulletManager : MonoBehaviour
         }
 
         // 再利用できなければ生成して発射
-        GameObject obj = Instantiate(m_BulletMasterObject[id]);
+        GameObject obj = Instantiate(m_BulletMasterObject[(int)id]);
         Bullet bulletComponent = obj.GetComponent<Bullet>();
         bulletComponent.Fire(pos, move);
         m_Bullets.Add(bulletComponent);

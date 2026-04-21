@@ -14734,7 +14734,7 @@ GameObject:
   - component: {fileID: 8919484260529707531}
   - component: {fileID: 1075010451571821496}
   m_Layer: 0
-  m_Name: BeholderDead
+  m_Name: DeadBeholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using BulletID = BulletManager.BulletID;
+using EffectID = EffectManager.EffectID;
+using SoundEffectID = AudioManager.SoundEffectID;
 
 public class Player : MonoBehaviour
 {
@@ -8,12 +11,12 @@ public class Player : MonoBehaviour
     float m_Speed = 1.0f;
 
     [SerializeField]
-    int m_BulletID = -1;
+    BulletID m_BulletID = BulletID.NONE;
 
     [SerializeField]
-    int m_DeadEffectID = -1;
+    EffectID m_DeadEffectID = EffectID.NONE;
     [SerializeField]
-    int m_SEDeadID = -1;
+    SoundEffectID m_SEDeadID = SoundEffectID.NONE;
 
     [SerializeField]
     float m_BulletInterval = 0.2f;
@@ -40,7 +43,7 @@ public class Player : MonoBehaviour
     ParticleSystem m_LevelUpParticle = null;
 
     [SerializeField]
-    int m_SELevelUpID = -1;
+    SoundEffectID m_SELevelUpID = SoundEffectID.NONE;
 
     float m_BulletIntervalTimer = 0.0f;
 
@@ -64,26 +67,27 @@ public class Player : MonoBehaviour
         Vector3 pos = transform.position;
         Vector3 move = Vector3.zero;
 
-        // ˆÚ“®“ü—Íˆ—
+        // ‘ÌŒ±‡@ ãˆÚ“®“ü—Íˆ—
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            move.y = m_Speed;
+            move.y = 1.0f;
         }
+        // ‘ÌŒ±‡A ‘¼•ûŒüˆÚ“®“ü—Íˆ—
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            move.y = -m_Speed;
+            move.y = -1.0f;
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            move.x = -m_Speed;
+            move.x = -1.0f;
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            move.x = m_Speed;
+            move.x = 1.0f;
         }
 
         // ˆÚ“®
-        pos += move * Time.deltaTime;
+        pos += move * m_Speed * Time.deltaTime;
 
         // ‰æ–Ê‚©‚ço‚È‚¢‚æ‚¤‚É
         pos.x = Mathf.Clamp(pos.x, -24.0f, -2.0f);
@@ -110,13 +114,17 @@ public class Player : MonoBehaviour
 
     private void AttackLV1()
     {
-        // ’eŠÛˆ—
+        // ‘ÌŒ±‡B UŒ‚ƒ{ƒ^ƒ““ü—Í”»’è
         if (Input.GetKey(KeyCode.Z))
         {
             if (m_BulletIntervalTimer <= 0.0f)
             {
-                // ”­Ë
-                BulletManager.Instance.FireBullet(m_BulletID, m_MuzzleLV1.position, m_MuzzleLV1.forward);
+                Vector3 pos = m_MuzzleLV1.position;
+                Vector3 dir = m_MuzzleLV1.forward;
+
+                // ‘ÌŒ±‡C’eŠÛ”­Ëˆ—
+                BulletManager.Instance.FireBullet(m_BulletID, pos, dir);
+
                 m_BulletIntervalTimer = m_BulletInterval;
             }
         }
@@ -172,7 +180,9 @@ public class Player : MonoBehaviour
 
     private void Dead()
     {
+        // ‘ÌŒ±‡J €–SƒGƒtƒFƒNƒg‚ğÄ¶
         EffectManager.Instance.PlayEffect(m_DeadEffectID, transform.position);
+        // ‘ÌŒ±‡K €–SSE‚ğÄ¶
         AudioManager.Instance.PlaySE(m_SEDeadID);
 
         gameObject.SetActive(false);

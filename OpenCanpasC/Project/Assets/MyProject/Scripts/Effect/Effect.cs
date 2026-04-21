@@ -1,13 +1,15 @@
 using UnityEngine;
+using static EffectManager;
+using EffectID = EffectManager.EffectID;
 
 public class Effect : MonoBehaviour
 {
     [SerializeField]
-    int m_ID = -1;
+    EffectID m_ID = EffectID.NONE;
 
     ParticleSystem m_ParticleSystem = null;
 
-    public int ID { get { return m_ID; } }
+    public EffectID ID { get { return m_ID; } }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()

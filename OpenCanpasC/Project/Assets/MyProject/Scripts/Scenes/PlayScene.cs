@@ -1,9 +1,10 @@
 using UnityEngine;
+using BackGroundMusicID = AudioManager.BackGroundMusicID;
 
 public class PlayScene : MonoBehaviour
 {
     [SerializeField]
-    int m_BGM_ID = -1;
+    BackGroundMusicID m_BGM_ID = BackGroundMusicID.NONE;
 
     int m_KillEnemy = 0;
 

@@ -1,9 +1,12 @@
 using UnityEngine;
+using BulletID = BulletManager.BulletID;
+using EffectID = EffectManager.EffectID;
+using SoundEffectID = AudioManager.SoundEffectID;
 
 public class Bullet : MonoBehaviour
 {
     [SerializeField]
-    int m_ID = -1;
+    BulletID m_ID = BulletID.NONE;
 
     [SerializeField]
     float m_Speed = 1.0f;
@@ -16,19 +19,19 @@ public class Bullet : MonoBehaviour
     private float m_LifeCounter = 0.0f;
 
     [SerializeField]
-    int m_HitEffectID = -1;
+    EffectID m_HitEffectID = EffectID.NONE;
 
     [SerializeField]
-    int m_SEFireID = -1;
+    SoundEffectID m_SEFireID = SoundEffectID.NONE;
 
     [SerializeField]
-    int m_SEHitID = -1;
+    SoundEffectID m_SEHitID = SoundEffectID.NONE;
 
     private Vector3 m_Move = Vector3.zero;
 
 
     // プロパティ
-    public int ID{ get { return m_ID; }}
+    public BulletID ID{ get { return m_ID; }}
     public int Damage { get { return m_Damage; } }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -80,10 +83,10 @@ public class Bullet : MonoBehaviour
 
     private void Hit()
     {
-        // ヒットエフェクトを再生
+        // 体験⑦ ヒットエフェクトを再生
         EffectManager.Instance.PlayEffect(m_HitEffectID, transform.position);
 
-        // ヒット音再生
+        // 体験⑧ ヒット音を再生
         AudioManager.Instance.PlaySE(m_SEHitID);
 
         gameObject.SetActive(false);

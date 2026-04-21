@@ -1642,7 +1642,7 @@ MonoBehaviour:
   m_EXP: 1
   m_DeadEffectNode: {fileID: 7693156975577079879}
   m_StayTime: 5
-  m_EscapeAccel: -0.2
+  m_EscapeAccel: -16
   m_EscapeVF: 8
   m_BulletID: 1
   m_BulletInterval: 3

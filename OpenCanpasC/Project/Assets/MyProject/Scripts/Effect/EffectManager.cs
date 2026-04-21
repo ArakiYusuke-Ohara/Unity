@@ -3,6 +3,15 @@ using UnityEngine;
 
 public class EffectManager : MonoBehaviour
 {
+    public enum EffectID
+    {
+        NONE = -1,
+        HIT_PLAYR_BULLET,
+        HIT_BEHOLDER_BULLET,
+        DEAD_BEHOLDER,
+        DEAD_PLAYER
+    }
+
     // ID順に設定するエフェクトの元データ
     [SerializeField]
     private GameObject[] m_EffectMasterObject;
@@ -23,10 +32,10 @@ public class EffectManager : MonoBehaviour
         Instance = this;
     }
 
-    public void PlayEffect(int id, Vector3 pos)
+    public void PlayEffect(EffectID id, Vector3 pos)
     {
         // IDチェック
-        if (id < 0 || id >= m_EffectMasterObject.Length) return;
+        if (id < 0 || (int)id >= m_EffectMasterObject.Length) return;
 
         // 発射リストを見て同じ弾丸かつ未使用のものがあれば再利用
         foreach (Effect effect in m_Effects)
@@ -39,7 +48,7 @@ public class EffectManager : MonoBehaviour
         }
 
         // 再利用できなければ生成して再生
-        GameObject obj = Instantiate(m_EffectMasterObject[id]);
+        GameObject obj = Instantiate(m_EffectMasterObject[(int)id]);
         Effect effectComponent = obj.GetComponent<Effect>();
         effectComponent.Play(pos);
         m_Effects.Add(effectComponent);

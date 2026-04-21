@@ -1,11 +1,12 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using BulletID = BulletManager.BulletID;
 
 public class EnemyBeholder : EnemyBase
 {
     [SerializeField]
-    int m_BulletID = -1;
+    BulletID m_BulletID = BulletID.NONE;
 
     [SerializeField]
     float m_BulletInterval = 3.0f;

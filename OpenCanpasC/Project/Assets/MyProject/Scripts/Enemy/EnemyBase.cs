@@ -1,5 +1,7 @@
 using System.Threading;
 using UnityEngine;
+using EffectID = EffectManager.EffectID;
+using SoundEffectID = AudioManager.SoundEffectID;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -22,10 +24,10 @@ public class EnemyBase : MonoBehaviour
     float m_MoveSpeed = 5.0f;
 
     [SerializeField]
-    int m_DeadEffectID = -1;
+    EffectID m_DeadEffectID = EffectID.NONE;
 
     [SerializeField]
-    int m_SEDeadID = -1;
+    SoundEffectID m_SEDeadID = SoundEffectID.NONE;
 
     [SerializeField]
     int m_EXP = 1;
@@ -117,7 +119,7 @@ public class EnemyBase : MonoBehaviour
     void UpdateEscape()
     {
         transform.position += m_EscapeMove * Time.deltaTime;
-        m_EscapeMove.x += m_EscapeAccel;
+        m_EscapeMove.x += m_EscapeAccel * Time.deltaTime;
 
         // 左端まで行ったら非アクティブ
         if (transform.position.x <= -40.0f)
@@ -151,13 +153,16 @@ public class EnemyBase : MonoBehaviour
     {
         // 死亡演出
         Transform trans = m_DeadEffectNode ? m_DeadEffectNode : transform;
+
+        // 体験⑨ 死亡エフェクト再生
         EffectManager.Instance.PlayEffect(m_DeadEffectID, trans.position);
+        // 体験⑩ 死亡SE再生
         AudioManager.Instance.PlaySE(m_SEDeadID);
 
         // 倒したエネミー数加算
         PlayScene.Instance.KillEnemy++;
 
-        // 経験値加算
+        // プレイヤー経験値加算
         PlayerManager.Instance.PlayerComponent.AddExp(m_EXP);
 
         gameObject.SetActive(false);
@@ -165,10 +170,10 @@ public class EnemyBase : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // プレイヤーの弾丸が当たった
+        // 体験⑤ プレイヤーの弾丸の当たり判定
         if (other.CompareTag("PlayerBullet"))
         {
-            // ダメージ
+            // 体験⑥ 弾丸ダメージを与える
             Bullet bullet = other.GetComponent<Bullet>();
             Damage(bullet.Damage);
         }
