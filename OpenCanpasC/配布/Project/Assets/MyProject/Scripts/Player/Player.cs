@@ -68,23 +68,25 @@ public class Player : MonoBehaviour
         Vector3 move = Vector3.zero;
 
         // ‘ÌŒ±‡@ ãˆÚ“®“ü—Íˆ—
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-            move.y = 1.0f;
-        }
+
+
+
+
+
         // ‘ÌŒ±‡A ‘¼•ûŒüˆÚ“®“ü—Íˆ—
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-            move.y = -1.0f;
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            move.x = -1.0f;
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            move.x = 1.0f;
-        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // ˆÚ“®
         pos += move * m_Speed * Time.deltaTime;
@@ -115,7 +117,7 @@ public class Player : MonoBehaviour
     private void AttackLV1()
     {
         // ‘ÌŒ±‡B UŒ‚ƒ{ƒ^ƒ““ü—Í”»’è
-        if (Input.GetKey(KeyCode.Z))
+        if ( false )
         {
             if (m_BulletIntervalTimer <= 0.0f)
             {
@@ -123,7 +125,7 @@ public class Player : MonoBehaviour
                 Vector3 dir = m_MuzzleLV1.forward;
 
                 // ‘ÌŒ±‡C’eŠÛ”­Ëˆ—
-                BulletManager.Instance.FireBullet(m_BulletID, pos, dir);
+
 
                 m_BulletIntervalTimer = m_BulletInterval;
             }
@@ -181,9 +183,10 @@ public class Player : MonoBehaviour
     private void Dead()
     {
         // ‘ÌŒ±‡J €–SƒGƒtƒFƒNƒg‚ğÄ¶
-        EffectManager.Instance.PlayEffect(m_DeadEffectID, transform.position);
+
+
         // ‘ÌŒ±‡K €–SSE‚ğÄ¶
-        AudioManager.Instance.PlaySE(m_SEDeadID);
+
 
         gameObject.SetActive(false);
     }

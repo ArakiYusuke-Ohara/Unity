@@ -155,9 +155,10 @@ public class EnemyBase : MonoBehaviour
         Transform trans = m_DeadEffectNode ? m_DeadEffectNode : transform;
 
         // 体験⑨ 死亡エフェクト再生
-        EffectManager.Instance.PlayEffect(m_DeadEffectID, trans.position);
+
+
         // 体験⑩ 死亡SE再生
-        AudioManager.Instance.PlaySE(m_SEDeadID);
+
 
         // 倒したエネミー数加算
         PlayScene.Instance.KillEnemy++;
@@ -171,11 +172,12 @@ public class EnemyBase : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // 体験⑤ プレイヤーの弾丸の当たり判定
-        if (other.CompareTag("PlayerBullet"))
+        if (false)
         {
             // 体験⑥ 弾丸ダメージを与える
-            Bullet bullet = other.GetComponent<Bullet>();
-            Damage(bullet.Damage);
+
+
+
         }
     }
 }

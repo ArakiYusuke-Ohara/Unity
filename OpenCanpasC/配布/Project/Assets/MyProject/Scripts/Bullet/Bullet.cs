@@ -84,10 +84,10 @@ public class Bullet : MonoBehaviour
     private void Hit()
     {
         // 体験⑦ ヒットエフェクトを再生
-        EffectManager.Instance.PlayEffect(m_HitEffectID, transform.position);
+
 
         // 体験⑧ ヒット音を再生
-        AudioManager.Instance.PlaySE(m_SEHitID);
+
 
         gameObject.SetActive(false);
     }

@@ -26,7 +26,9 @@ public class PlayScene : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        AudioManager.Instance.PlayBGM(m_BGM_ID);
+        // ‘ÌŒ±‡L BGMÄ¶
+
+
         m_KillEnemy = 0;
     }
 
