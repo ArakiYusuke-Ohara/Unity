@@ -72,6 +72,7 @@ public class Player : MonoBehaviour
         {
             move.y = 1.0f;
         }
+
         // ‘ÌŒ±‡A ‘¼•ûŒüˆÚ“®“ü—Íˆ—
         if (Input.GetKey(KeyCode.DownArrow))
         {

@@ -71,9 +71,9 @@ MonoBehaviour:
   m_Speed: 50
   m_Damage: 1
   m_Life: 2
-  m_HitEffectID: 0
-  m_SEFireID: 0
-  m_SEHitID: 3
+  m_HitEffectID: -1
+  m_SEFireID: -1
+  m_SEHitID: -1
 --- !u!1 &7195836866115582189
 GameObject:
   m_ObjectHideFlags: 0

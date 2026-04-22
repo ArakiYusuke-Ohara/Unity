@@ -129,6 +129,6 @@ MonoBehaviour:
   m_Speed: 20
   m_Damage: 1
   m_Life: 5
-  m_HitEffectID: 1
-  m_SEFireID: 1
-  m_SEHitID: 4
+  m_HitEffectID: -1
+  m_SEFireID: -1
+  m_SEHitID: -1

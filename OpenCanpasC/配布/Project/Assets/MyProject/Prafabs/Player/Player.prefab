@@ -392,8 +392,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   m_Speed: 15
   m_BulletID: 0
-  m_DeadEffectID: 3
-  m_SEDeadID: 7
+  m_DeadEffectID: -1
+  m_SEDeadID: -1
   m_BulletInterval: 0.2
   m_MuzzleLV1: {fileID: 6025419230810776059}
   m_MuzzleLV2:
