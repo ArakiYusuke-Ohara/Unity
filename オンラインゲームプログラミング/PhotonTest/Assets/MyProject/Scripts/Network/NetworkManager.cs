@@ -9,6 +9,8 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
     public struct PlayerInputData : INetworkInput
     {
         public float horizontal;
+        public float vertical;
+        public bool jump;
     }
 
     private NetworkRunner m_Runner;
@@ -36,7 +38,8 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
     {
         if (runner.IsServer)
         {
-            NetworkObject obj = runner.Spawn(m_PlayerPrefab, Vector3.zero, Quaternion.identity, player);
+            Vector3 spawnPos = new Vector3(0.0f, 3.0f, 0.0f);
+            NetworkObject obj = runner.Spawn(m_PlayerPrefab, spawnPos, Quaternion.identity, player);
             runner.SetPlayerObject(player, obj);
         }
     }
@@ -44,6 +47,9 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
     {
         PlayerInputData data = new PlayerInputData();
         data.horizontal = Input.GetAxis("Horizontal");
+        data.vertical = Input.GetAxis("Vertical");
+        data.jump = Input.GetKeyDown(KeyCode.Z);
+
         input.Set(data);
     }
 
