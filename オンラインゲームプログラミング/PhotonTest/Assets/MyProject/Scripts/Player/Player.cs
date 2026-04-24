@@ -1,7 +1,5 @@
 using Fusion;
 using UnityEngine;
-using UnityEngine.Rendering;
-using static UnityEditor.PlayerSettings;
 
 public class Player : NetworkBehaviour
 {
@@ -9,43 +7,52 @@ public class Player : NetworkBehaviour
     float m_Speed = 5.0f;
 
     [SerializeField]
-    float m_JumpPower = 10.0f;
+    float m_JumpPower = 5.0f;
+
+    [SerializeField]
+    float m_Gravity = -9.8f;
 
     Vector3 m_Move = Vector3.zero;
-    Rigidbody m_RigidBody = null;
-    private void Start()
+    CharacterController m_Controller = null;
+
+    private void Awake()
     {
-        m_RigidBody = GetComponent<Rigidbody>();
+        // ã‚ªãƒ³ãƒ©ã‚¤ãƒ³ã®ç§»å‹•ã¯CharacterControllerãŒä¸€ç•ªç„¡é›£
+        m_Controller = GetComponent<CharacterController>();
     }
 
     public override void FixedUpdateNetwork()
     {
-        // NWó‘ÔŠÇ—ÒiStateAuthorityj‚ª‚È‚¯‚ê‚Î‰½‚à‚µ‚È‚¢
+        // ç§»å‹•å‡¦ç†ã¯ã‚µãƒ¼ãƒãƒ¼ã®ã¿è¡Œã†
+        // Authorityã¯ã‚µãƒ¼ãƒãƒ¼ã®ã¿æŒã¤ã®ã§ãã‚Œã§åˆ¤å®šã™ã‚‹
         if (!Object.HasStateAuthority) return;
 
-        Vector3 pos = transform.position;
-
-        // NW“ü—ÍŠÇ—ÒiInputAuthorityj‚©‚ç“ü—Íî•ñ‚ğó‚¯æ‚é
-        // “ü—Íî•ñ‚Ídata‚Ì’†‚ÉŠi”[‚³‚ê‚é
-        if (GetInput(out NetworkManager.PlayerInputData data))
+        // è¨­ç½®åˆ¤å®š
+        if (m_Controller.isGrounded && m_Move.y < 0.0f)
         {
-            // ˆÚ“®ƒxƒNƒgƒ‹İ’è
-            m_Move.x = data.horizontal * m_Speed * Runner.DeltaTime;
-            m_Move.y = m_RigidBody.linearVelocity.y;
-            m_Move.z = data.vertical * m_Speed * Runner.DeltaTime;
-
-            // ˆÚ“®ƒxƒNƒgƒ‹İ’èi‚±‚¤‚µ‚È‚¢‚Æd—ÍŒø‚©‚È‚¢j
-            m_RigidBody.linearVelocity = m_Move;
-
-            // ƒWƒƒƒ“ƒv
-            if (data.jump)
-            {
-                // ˆÚ“®ƒxƒNƒgƒ‹“ü‚ê’¼‚µ
-                m_Move.y = m_JumpPower;
-                m_RigidBody.linearVelocity = m_Move;
-            }
-
+            // åœ°é¢ã«ã„ã‚‹ã¨ãã¯è»½ãåœ°é¢ã«æŠ¼ã—ä»˜ã‘ã‚‹
+            m_Move.y = -1.0f;
         }
 
+        // NetworkManagerã®OnInputã§è¨­å®šã•ã‚ŒãŸå…¥åŠ›ãƒ‡ãƒ¼ã‚¿ã‚’å—ã‘å–ã‚‹
+        // å…¥åŠ›æƒ…å ±ã¯dataã®ä¸­ã«æ ¼ç´ã•ã‚Œã‚‹
+        if (GetInput(out NetworkManager.PlayerInputData data))
+        {
+            // å…¥åŠ›ã‹ã‚‰æ°´å¹³ç§»å‹•é‡ã‚’è¨­å®š
+            m_Move.x = data.horizontal * m_Speed;
+            m_Move.z = data.vertical * m_Speed;
+
+            // ã‚¸ãƒ£ãƒ³ãƒ—
+            if (data.jump && m_Controller.isGrounded)
+            {
+                m_Move.y = m_JumpPower;
+            }
+
+            // é‡åŠ›
+            m_Move.y += m_Gravity * Runner.DeltaTime;
+
+            // ç§»å‹•
+            m_Controller.Move(m_Move * Runner.DeltaTime);
+        }
     }
 }
