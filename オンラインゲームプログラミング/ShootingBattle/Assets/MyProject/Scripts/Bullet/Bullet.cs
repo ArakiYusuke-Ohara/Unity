@@ -20,7 +20,8 @@ public class Bullet : NetworkBehaviour
         // õ–½ˆ—
         if (m_Life <= 0.0f)
         {
-            gameObject.SetActive(false);
+            // íœ
+            Runner.Despawn(Object);
         }
         m_Life -= Runner.DeltaTime;
     }
@@ -29,6 +30,5 @@ public class Bullet : NetworkBehaviour
     {
         transform.position = pos;
         transform.rotation = rot;
-        gameObject.SetActive(true);
     }
 }

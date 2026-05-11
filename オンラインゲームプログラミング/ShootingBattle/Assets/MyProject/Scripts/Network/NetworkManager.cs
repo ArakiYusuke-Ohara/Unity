@@ -34,13 +34,16 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         m_Runner.AddCallbacks(this);
 
         // サーバーかクライアントか
-        GameMode gameMode = gameMode = GameMode.Client;
+        GameMode gameMode = gameMode = GameMode.Server;
         // 実行時のコマンドライン引数でサーバーかどうか判定する
         string[] args = System.Environment.GetCommandLineArgs();
-        if (args.Contains("-server"))
+        if (args.Contains("-client"))
         {
-            gameMode = GameMode.Server;
+            gameMode = GameMode.Client;
         }
+
+//        gameMode = GameMode.Client;
+//        gameMode = GameMode.Server;
 
         // ゲームを設定して通信開始
         await m_Runner.StartGame(new StartGameArgs()

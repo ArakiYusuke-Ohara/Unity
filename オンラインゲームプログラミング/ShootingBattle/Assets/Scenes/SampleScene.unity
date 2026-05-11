@@ -596,6 +596,10 @@ PrefabInstance:
       propertyPath: SortKey
       value: 4024516113
       objectReference: {fileID: 0}
+    - target: {fileID: 6274669596543795530, guid: c1672c7750a007b438d1be68871dad42, type: 3}
+      propertyPath: SortKey
+      value: 3667821692
+      objectReference: {fileID: 0}
     - target: {fileID: 8371670413812173024, guid: c1672c7750a007b438d1be68871dad42, type: 3}
       propertyPath: m_Name
       value: BulletManager

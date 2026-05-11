@@ -2,10 +2,10 @@ using UnityEngine;
 using System.Collections.Generic;
 using Fusion;
 
-public class BulletManager : NetworkBehaviour
+public class BulletManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject m_BulletPrafab = null;
+    NetworkObject m_BulletPrafab = null;
 
 
     List<Bullet> m_Bullets = new List<Bullet>();
@@ -22,18 +22,13 @@ public class BulletManager : NetworkBehaviour
         Instance = this;
     }
 
-    public Bullet FireBullet(Vector3 pos, Quaternion rot)
+    public Bullet FireBullet(NetworkRunner runner, Vector3 pos, Quaternion rot)
     {
-        foreach (Bullet bullet in m_Bullets)
-        {
-            if (!bullet.gameObject.activeInHierarchy)
-            {
-                bullet.Fire(pos, rot);
-                return bullet;
-            }
-        }
+        // オブジェクトプールはプール内を同期する必要があるので
+        // とても難しい
 
-        NetworkObject bulletObj = Runner.Spawn(m_BulletPrafab);
+        // 弾丸をスポーンして発射
+        NetworkObject bulletObj = runner.Spawn(m_BulletPrafab);
         Bullet bulletComp = bulletObj.GetComponent<Bullet>();
         bulletComp.Fire(pos, rot);
 

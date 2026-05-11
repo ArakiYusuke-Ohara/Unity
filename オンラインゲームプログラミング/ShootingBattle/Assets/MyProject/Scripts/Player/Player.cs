@@ -64,7 +64,7 @@ public class Player : NetworkBehaviour
             // 弾丸発射
             if (data.fire)
             {
-                BulletManager.Instance.FireBullet(transform.position, transform.rotation);
+                BulletManager.Instance.FireBullet(Runner, transform.position, transform.rotation);
             }
         }
     }
