@@ -29,9 +29,9 @@ public class BulletManager : MonoBehaviour
 
         // íeä€ÇÉXÉ|Å[ÉìÇµÇƒî≠éÀ
         NetworkObject bulletObj = runner.Spawn(m_BulletPrafab);
-        Bullet bulletComp = bulletObj.GetComponent<Bullet>();
-        bulletComp.Fire(pos, rot);
+        Bullet bullet = bulletObj.GetComponent<Bullet>();
+        bullet.Fire(pos, rot);
 
-        return bulletComp;
+        return bullet;
     }
 }

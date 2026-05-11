@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class Bullet : NetworkBehaviour
 {
+    [Networked]
+    public PlayerRef Owner { get; set; }
+
     [SerializeField]
     float m_Life = 2.0f;
 
@@ -30,5 +33,23 @@ public class Bullet : NetworkBehaviour
     {
         transform.position = pos;
         transform.rotation = rot;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // 当たり判定はサーバーだけでやる
+        if (!HasStateAuthority) return;
+
+        // タグではなくコンポーネントでチェック
+        Player otherPlayer = other.GetComponent<Player>();
+        if (otherPlayer)
+        {
+            // 当たったのが撃ったプレイヤーでないか
+            if (Owner != otherPlayer.Object.InputAuthority)
+            {
+                // 削除
+                Runner.Despawn(Object);
+            }
+        }
     }
 }

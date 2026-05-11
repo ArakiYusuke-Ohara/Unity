@@ -64,7 +64,28 @@ public class Player : NetworkBehaviour
             // 弾丸発射
             if (data.fire)
             {
-                BulletManager.Instance.FireBullet(Runner, transform.position, transform.rotation);
+                // 発射
+                Bullet bullet = BulletManager.Instance.FireBullet(Runner, transform.position, transform.rotation);
+                // 誰が撃ったかはInputAuthorityで覚えておくと確実
+                bullet.Owner = Object.InputAuthority;
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // 当たり判定はサーバーだけでやる
+        if (!HasStateAuthority) return;
+
+        // タグではなくコンポーネントチェック
+        Bullet bullet = other.GetComponent<Bullet>();
+        if (bullet)
+        {
+            // 相手が撃った弾かどうか
+            if (bullet.Owner != Object.InputAuthority)
+            {
+                // 死亡
+                Runner.Despawn(Object);
             }
         }
     }
