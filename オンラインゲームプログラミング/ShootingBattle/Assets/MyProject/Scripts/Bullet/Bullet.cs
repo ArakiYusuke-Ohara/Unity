@@ -21,12 +21,12 @@ public class Bullet : NetworkBehaviour
         transform.position += transform.forward * m_Speed * Runner.DeltaTime;
 
         // õ–½ˆ—
+        m_Life -= Runner.DeltaTime;
         if (m_Life <= 0.0f)
         {
             // íœ
             Runner.Despawn(Object);
         }
-        m_Life -= Runner.DeltaTime;
     }
 
     public void Fire(Vector3 pos, Quaternion rot)
@@ -47,7 +47,7 @@ public class Bullet : NetworkBehaviour
             // “–‚½‚Á‚½‚Ì‚ªŒ‚‚Á‚½ƒvƒŒƒCƒ„[‚Å‚È‚¢‚©
             if (Owner != otherPlayer.Object.InputAuthority)
             {
-                // íœ
+                otherPlayer.Damage(1);
                 Runner.Despawn(Object);
             }
         }

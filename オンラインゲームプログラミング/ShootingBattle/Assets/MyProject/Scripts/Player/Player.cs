@@ -16,6 +16,9 @@ public class Player : NetworkBehaviour
     [SerializeField]
     float m_Decel = -20.0f;
 
+    [SerializeField]
+    int m_HP = 1;
+
     float m_Speed = 0.0f;
     Vector3 m_Move = Vector3.zero;
     CharacterController m_Controller = null;
@@ -72,21 +75,13 @@ public class Player : NetworkBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Damage(int value)
     {
-        // 当たり判定はサーバーだけでやる
-        if (!HasStateAuthority) return;
+        m_HP -= value;
 
-        // タグではなくコンポーネントチェック
-        Bullet bullet = other.GetComponent<Bullet>();
-        if (bullet)
+        if (m_HP <= 0)
         {
-            // 相手が撃った弾かどうか
-            if (bullet.Owner != Object.InputAuthority)
-            {
-                // 死亡
-                Runner.Despawn(Object);
-            }
+            Runner.Despawn(Object);
         }
     }
 }
