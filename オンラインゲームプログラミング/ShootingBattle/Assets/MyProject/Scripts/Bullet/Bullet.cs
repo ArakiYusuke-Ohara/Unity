@@ -47,7 +47,11 @@ public class Bullet : NetworkBehaviour
             // 当たったのが撃ったプレイヤーでないか
             if (Owner != otherPlayer.Object.InputAuthority)
             {
+                // ダメージ処理
                 otherPlayer.Damage(1);
+                // ヒットエフェクト
+                otherPlayer.RPC_PlayHitEffect(transform.position);
+                // バレット削除
                 Runner.Despawn(Object);
             }
         }

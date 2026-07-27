@@ -23,6 +23,9 @@ public class Player : NetworkBehaviour
     Vector3 m_Move = Vector3.zero;
     CharacterController m_Controller = null;
 
+    [SerializeField]
+    bool m_DebugInvincible = false;
+
     private void Awake()
     {
         // オンラインの移動はCharacterControllerが一番無難
@@ -77,11 +80,23 @@ public class Player : NetworkBehaviour
 
     public void Damage(int value)
     {
+        if (m_DebugInvincible) return;
+
         m_HP -= value;
 
         if (m_HP <= 0)
         {
             Runner.Despawn(Object);
         }
+    }
+
+    /// <summary>
+    /// エフェクト発生イベント関数
+    /// </summary>
+    /// <param name="position">エフェクトの座標</param>
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    public void RPC_PlayHitEffect(Vector3 position)
+    {
+        EffectManager.Instance.PlayEffect(EffectManager.EffectID.HIT_BULLET, position);
     }
 }
