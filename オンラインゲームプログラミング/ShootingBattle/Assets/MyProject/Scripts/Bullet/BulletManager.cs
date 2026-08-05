@@ -24,8 +24,7 @@ public class BulletManager : MonoBehaviour
 
     public Bullet FireBullet(NetworkRunner runner, Vector3 pos, Quaternion rot)
     {
-        // オブジェクトプールはプール内を同期する必要があるので
-        // とても難しい
+        // オブジェクトプールはプール内を同期する必要があるのでとても難しい
 
         // 弾丸をスポーンして発射
         NetworkObject bulletObj = runner.Spawn(m_BulletPrafab);
