@@ -1,4 +1,5 @@
 using Fusion;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
@@ -17,7 +18,9 @@ public class Player : NetworkBehaviour
     float m_Decel = -20.0f;
 
     [SerializeField]
-    int m_HP = 1;
+    int m_MaxHP = 1;
+    [Networked]
+    public int HP { get; set; }
 
     float m_Speed = 0.0f;
     Vector3 m_Move = Vector3.zero;
@@ -30,6 +33,13 @@ public class Player : NetworkBehaviour
     {
         // オンラインの移動はCharacterControllerが一番無難
         m_Controller = GetComponent<CharacterController>();
+    }
+
+    public override void Spawned()
+    {
+        base.Spawned();
+
+        HP = m_MaxHP;
     }
 
     public override void FixedUpdateNetwork()
@@ -82,9 +92,9 @@ public class Player : NetworkBehaviour
     {
         if (m_DebugInvincible) return;
 
-        m_HP -= value;
+        HP -= value;
 
-        if (m_HP <= 0)
+        if (HP <= 0)
         {
             Runner.Despawn(Object);
         }
