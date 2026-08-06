@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static Unity.Collections.Unicode;
 
 public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 {
@@ -32,18 +33,16 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         m_Runner = gameObject.AddComponent<NetworkRunner>();
         m_Runner.ProvideInput = true;
         m_Runner.AddCallbacks(this);
+        BulletManager.Instance.Init(m_Runner);
 
         // サーバーかクライアントか
-        GameMode gameMode = gameMode = GameMode.Server;
+        GameMode gameMode = GameMode.Server;
         // 実行時のコマンドライン引数でサーバーかどうか判定する
         string[] args = System.Environment.GetCommandLineArgs();
         if (args.Contains("-client"))
         {
             gameMode = GameMode.Client;
         }
-
-//        gameMode = GameMode.Client;
-//        gameMode = GameMode.Server;
 
         // ゲームを設定して通信開始
         await m_Runner.StartGame(new StartGameArgs()

@@ -81,7 +81,7 @@ public class Player : NetworkBehaviour
             if (data.fire)
             {
                 // 発射
-                Bullet bullet = BulletManager.Instance.FireBullet(Runner, transform.position, transform.rotation);
+                Bullet bullet = BulletManager.Instance.FireBullet(transform.position, transform.rotation);
                 // 誰が撃ったかはInputAuthorityで覚えておくと確実
                 bullet.Owner = Object.InputAuthority;
             }

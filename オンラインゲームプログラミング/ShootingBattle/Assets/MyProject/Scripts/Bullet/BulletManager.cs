@@ -10,6 +10,8 @@ public class BulletManager : MonoBehaviour
 
     List<Bullet> m_Bullets = new List<Bullet>();
 
+    NetworkRunner m_Runner = null;
+
     public static BulletManager Instance { get; private set; }
     private void Awake()
     {
@@ -22,15 +24,41 @@ public class BulletManager : MonoBehaviour
         Instance = this;
     }
 
-    public Bullet FireBullet(NetworkRunner runner, Vector3 pos, Quaternion rot)
+    public void Init(NetworkRunner runner)
     {
-        // オブジェクトプールはプール内を同期する必要があるのでとても難しい
+        m_Runner = runner;
+    }
 
-        // 弾丸をスポーンして発射
-        NetworkObject bulletObj = runner.Spawn(m_BulletPrafab);
-        Bullet bullet = bulletObj.GetComponent<Bullet>();
-        bullet.Fire(pos, rot);
+    public Bullet FireBullet(Vector3 pos, Quaternion rot)
+    {
+        foreach (Bullet bullet in m_Bullets)
+        {
+            // 使われていない弾丸を再利用
+            if (!bullet.IsActive)
+            {
+                bullet.Fire(pos, rot);
+                return bullet;
+            }
+        }
 
-        return bullet;
+        // 使いまわせない場合は弾丸をスポーンして発射
+        NetworkObject bulletObj = m_Runner.Spawn(m_BulletPrafab);
+        Bullet newBullet = bulletObj.GetComponent<Bullet>();
+        newBullet.Fire(pos, rot);
+        m_Bullets.Add(newBullet);
+
+        return newBullet;
+    }
+
+    /// <summary>
+    /// Spawnした弾丸を削除(Despawn)する
+    /// もう弾丸が不要になるタイミングで呼ぶ
+    /// </summary>
+    public void DespawnAllBullet()
+    {
+        foreach (Bullet bullet in m_Bullets)
+        {
+            m_Runner.Despawn(bullet.Object);
+        }
     }
 }

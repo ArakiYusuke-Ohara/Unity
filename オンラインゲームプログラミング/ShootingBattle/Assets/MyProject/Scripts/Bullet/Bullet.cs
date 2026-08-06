@@ -3,14 +3,28 @@ using UnityEngine;
 
 public class Bullet : NetworkBehaviour
 {
+    // Networkedがついてる変数は全クライアントで同期され共有できる
     [Networked]
     public PlayerRef Owner { get; set; }
 
+    [Networked]
+    public bool IsActive{ get; set; }
+
     [SerializeField]
-    float m_Life = 2.0f;
+    float m_MaxLife = 2.0f;
+    float m_Life = 0.0f;
 
     [SerializeField]
     float m_Speed = 5.0f;
+
+    /// <summary>
+    /// スポーン時に呼ばれる関数
+    /// </summary>
+    public override void Spawned()
+    {
+        base.Spawned();
+        IsActive = false;
+    }
 
     public override void FixedUpdateNetwork()
     {
@@ -25,12 +39,14 @@ public class Bullet : NetworkBehaviour
         if (m_Life <= 0.0f)
         {
             // 削除
-            Runner.Despawn(Object);
+            IsActive = false;
         }
     }
 
     public void Fire(Vector3 pos, Quaternion rot)
     {
+        IsActive = true;
+        m_Life = m_MaxLife;
         transform.position = pos;
         transform.rotation = rot;
     }
@@ -51,8 +67,8 @@ public class Bullet : NetworkBehaviour
                 otherPlayer.Damage(1);
                 // ヒットエフェクト
                 otherPlayer.RPC_PlayHitEffect(transform.position);
-                // バレット削除
-                Runner.Despawn(Object);
+                // バレット非アクティブ
+                IsActive = false;
             }
         }
     }
